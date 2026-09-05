@@ -61,12 +61,9 @@ export const Route = createFileRoute("/")({
 
 /* ---------- UI helpers ---------- */
 
-function SectionTag({ n, children }: { n: string; children: ReactNode }) {
+function SectionTag({ children }: { children: ReactNode }) {
   return (
-    <div className="mb-6 flex items-center gap-3">
-      <span className="flex h-9 min-w-9 items-center justify-center rounded-md bg-primary px-2 text-sm font-extrabold text-primary-foreground">
-        {n}
-      </span>
+    <div className="mb-6">
       <span className="text-xs font-bold tracking-[0.25em] text-muted-foreground uppercase">
         {children}
       </span>
