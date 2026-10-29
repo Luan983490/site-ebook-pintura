@@ -35,7 +35,7 @@ import prev2 from "@/assets/lp/prev2.jpg";
 import prev3 from "@/assets/lp/prev3.jpg";
 import prev4 from "@/assets/lp/prev4.jpg";
 
-const CHECKOUT_URL = "https://pay.hotmart.com/G107380888N";
+const CHECKOUT_URL = "https://pay.cakto.com.br/tcnunbi_1259641";
 
 export const Route = createFileRoute("/")({
   head: () => ({
