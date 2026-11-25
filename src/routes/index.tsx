@@ -23,7 +23,7 @@ import {
   RefreshCcw,
   Smartphone,
 } from "lucide-react";
-import { useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
 
 import bookMockup from "@/assets/lp/book-mockup.png";
 import dorImg from "@/assets/lp/dor.jpg";
@@ -40,7 +40,7 @@ const CHECKOUT_URL = "https://pay.cakto.com.br/tcnunbi_1259641";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Pinte Sua Casa Como Um Profissional — Guia Completo por R$47,90" },
+      { title: "Pinte Sua Casa Como Um Profissional — Guia Completo por R$79,90" },
       {
         name: "description",
         content:
@@ -50,7 +50,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "Do zero ao acabamento perfeito. Economize até R$3.000 pintando você mesmo — por apenas R$47,90.",
+          "Do zero ao acabamento perfeito. Economize até R$3.000 pintando você mesmo — por apenas R$79,90.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -97,12 +97,56 @@ function CtaButton({ children = "QUERO MEU ACESSO AGORA!" }: { children?: ReactN
 function Price() {
   return (
     <div>
-      <p className="text-sm text-muted-foreground line-through">DE R$97,00</p>
+      <p className="text-sm text-muted-foreground line-through">DE R$147,00</p>
       <p className="text-xs font-bold tracking-widest text-muted-foreground">POR APENAS</p>
       <p className="text-5xl font-extrabold text-primary md:text-6xl">
-        R$47<span className="text-3xl">,90</span>
+        R$79<span className="text-3xl">,90</span>
       </p>
       <p className="mt-1 text-xs text-muted-foreground">PAGAMENTO ÚNICO • ACESSO IMEDIATO</p>
+    </div>
+  );
+}
+
+/* ---------- Black Friday bar ---------- */
+
+// Ciclo infinito: a contagem reinicia sozinha quando chega a zero.
+const BF_CYCLE_MS = 3 * 60 * 60 * 1000; // 3 horas
+
+function useBlackFridayCountdown() {
+  const [left, setLeft] = useState<number | null>(null);
+  useEffect(() => {
+    const tick = () => setLeft(BF_CYCLE_MS - (Date.now() % BF_CYCLE_MS));
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+  return left;
+}
+
+function BlackFridayBar() {
+  const left = useBlackFridayCountdown();
+  const pad = (n: number) => String(n).padStart(2, "0");
+  const total = Math.floor((left ?? BF_CYCLE_MS) / 1000);
+  const parts = [Math.floor(total / 3600), Math.floor((total % 3600) / 60), total % 60];
+  return (
+    <div className="sticky top-0 z-50 border-b border-yellow-400/40 bg-gradient-to-r from-black via-red-700 to-black px-3 py-2 text-center text-white shadow-lg">
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs font-extrabold tracking-wide uppercase md:text-sm">
+        <span className="flex items-center gap-1.5">
+          <Zap className="h-4 w-4 animate-pulse text-yellow-300" />
+          <span className="text-yellow-300">Black Friday</span> • Últimas horas!
+        </span>
+        <span className="flex items-center gap-1 font-mono text-base md:text-lg" suppressHydrationWarning>
+          {parts.map((p, i) => (
+            <span key={i} className="flex items-center gap-1">
+              <span className="rounded bg-black/70 px-1.5 py-0.5 text-yellow-300 tabular-nums">
+                {left === null ? "--" : pad(p)}
+              </span>
+              {i < 2 && <span className="text-yellow-300">:</span>}
+            </span>
+          ))}
+        </span>
+        <span className="hidden sm:inline">Oferta termina em breve — garanta por R$79,90</span>
+      </div>
     </div>
   );
 }
@@ -121,6 +165,7 @@ function SalesPage() {
         } as CSSProperties
       }
     >
+      <BlackFridayBar />
       {/* 01 HERO */}
       <section className="border-b border-border px-4 pt-12 pb-14 md:pt-16">
         <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-2">
@@ -455,7 +500,7 @@ function SalesPage() {
             <div className="mt-6 grid grid-cols-2 gap-3 text-left text-sm">
               <div className="rounded-lg border border-border p-3">
                 <p className="text-xs text-muted-foreground">INVESTIMENTO DE HOJE:</p>
-                <p className="font-extrabold text-primary">MENOS DE R$1,60 POR DIA</p>
+                <p className="font-extrabold text-primary">MENOS DE R$2,70 POR DIA</p>
               </div>
               <div className="rounded-lg border border-border p-3">
                 <p className="text-xs text-muted-foreground">ECONOMIA POTENCIAL:</p>
@@ -635,3 +680,4 @@ function Faq() {
     </div>
   );
 }
+
