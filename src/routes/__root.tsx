@@ -73,7 +73,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Pinte Sua Casa Como Um Profissional — Guia Completo por R$47,90" },
+      { title: "Pinte Sua Casa Como Um Profissional — Guia Completo por R$79,90" },
       {
         name: "description",
         content:
@@ -84,7 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         property: "og:description",
         content:
-          "Do zero ao acabamento perfeito. Economize até R$3.000 pintando você mesmo — por apenas R$47,90.",
+          "Do zero ao acabamento perfeito. Economize até R$3.000 pintando você mesmo — por apenas R$79,90.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
